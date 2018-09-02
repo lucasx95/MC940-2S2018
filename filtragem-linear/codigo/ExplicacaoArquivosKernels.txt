@@ -1,0 +1,15 @@
+kernel.txt e kernel-gray.txt:
+
+<número de bandas> <largura do kernel> <altura do kernel>
+<vetor de pesos das bandas com os pesos da origem em primeiro e o bias
+após todos os pesos.>
+
+kernel-bank.txt:
+
+<número de bandas> <largura do kernel> <altura do kernel> <número de kernels>
+<vetor de pesos das bandas do kernel 1 com os pesos da origem em
+primeiro e o bias após todos os pesos.>
+<vetor de pesos das bandas do kernel 2 com os pesos da origem em
+primeiro e o bias após todos os pesos.>
+
+etc

@@ -1,0 +1,172 @@
+\documentclass{beamer}
+\mode<presentation>  
+\usetheme{Warsaw}   
+\usecolortheme{seahorse}                
+\usepackage{textcomp}                                                          
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{pstricks,pst-node,pst-text,pst-3d}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc}
+\setbeamertemplate{bibliography item}[text]
+
+\title[]{Filtragem Linear} 
+\author{Alexandre Xavier Falc{\~{a}}o}
+\institute[IC-UNICAMP]{Instituto de Computação - UNICAMP}
+\date{afalcao@ic.unicamp.br}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Introdução}
+\begin{itemize}
+\item Filtros lineares têm hoje um papel fundamental na extração de
+  medidas (características) em redes neurais convolucionais.
+  \vspace{0.5cm}
+\item A filtragem linear resulta da \alert{convolução} entre uma imagem (sinal) e um \emph{kernel}. 
+  \vspace{0.5cm}
+\item Portanto, para entender a filtragem linear, precisamos dos
+  conceitos de imagem, adjacência, kernel, e convolução.
+\end{itemize} 
+\end{frame}
+
+\begin{frame}{Imagem}
+Uma imagem $\hat{I}$ é um par $(D_I,{\bf I})$ em que a função ${\bf
+  I}$ pode associar um conjunto de medidas ${\bf I}(p)=\{I_1(p),
+I_2(p), \ldots, I_n(p)\}$ para cada elemento (pixel) do seu domínio
+espacial $D_I\in Z^m$. No caso mais simples, $m=2$, $p=(x_p,y_p)$,
+$|D_I| = n_x \times n_y$, $n=1$, e ${\bf I}(p)$ é um escalar --- i.e.,
+a imagem é monocromática.
+\begin{center}
+  \includegraphics[width=0.7\hsize]{figs/grayimage.png}
+\end{center}
+\vspace{0.5cm}
+\pause
+Neste caso, simplificando a notação, a imagem é o par $\hat{I}=(D_I,I)$.
+\end{frame}
+
+\begin{frame}{Relação de Adjacência}
+  Uma relação de adjacência é um relação binária definida em
+  $D_I\times D_I$ com base em uma métrica entre pixels.  
+\begin{center}
+\includegraphics[width=0.5\hsize]{./figs/adjacency.png} 
+\end{center}
+\pause
+Para simplificar, vamos considerar apenas relações ${\cal A}$
+\alert{simétricas} derivadas de
+  \begin{equation*}
+    {\cal A}\colon \{ (p,q)\in {\cal A} | \|q - p\|\leq r\},
+  \end{equation*}
+  onde $r > 0$ e $\|.\|$ é a norma Euclideana.
+\end{frame}
+
+\begin{frame}{Detalhes de implementação}
+  \begin{itemize}
+    \item A imagem pode ser armazenada em um vetor $I[p]$,
+      $p=0,1,\ldots,|D_I|-1$, tal que $x_p = p \% n_x$ e $y_p = p /
+      n_x$. Note que existe uma relação direta entre o índice $p$ do vetor e
+      o pixel $p=(x_p,y_p)$.      
+      \vspace{0.5cm}\pause
+    \item Para um dado valor de $r > 0$, vamos considerar $q_i=(x_{q_i},y_{q_i})\in D_I$, $i=0,1,2,\ldots,|{\cal A}|-1$, como os pixels adjacentes de $p=(x_p,y_p)\in D_I$ (i.e., $(p,{q_i})\in {\cal A}$).
+      \vspace{0.5cm}\pause
+    \item Então podemos armazenar apenas os \alert{deslocamentos} $(dx_i,dy_i)=(x_{q_i},y_{q_i})-(x_p,y_p)$ em vetores $dx[i]$ e $dy[i]$ e acessar todo pixel $q_i$ a partir de qualquer pixel $p$ por $x_{q_i} = x_p + dx[i]$ e $y_{q_i} = y_p + dy[i]$, $i=0,1,2,\ldots,|{\cal A}|-1$. Normalmente $dx[0]=dy[0]=0$, facilitando a inclusão/exclusão do pixel $p$ como seu adjacente.      
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Kernel}
+  \begin{itemize}
+  \item Um kernel $\hat{K}$ é um par $({\cal A},K)$ que associa
+    um \alert{peso fixo} $K(q-p)=w_i$, $i=0,1,2,\ldots,|{\cal A}|-1$, para
+    cada adjacente $q_i$ de $p$.
+\begin{center}
+\includegraphics[width=0.5\hsize]{./figs/kernel.png} 
+\end{center}
+    \pause
+  \item Então basta representar um kernel pelos vetores $dx[i]$, $dy[i]$, e $w[i]$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Convolução}
+  \begin{itemize}
+  \item A filtragem linear é essencialmente o resultado da
+  \alert{convolução} de uma imagem $\hat{I}=(D_I,I)$ por um kernel
+  $\hat{K}=({\cal A},K)$ (``imagem móvel'').
+  \vspace{0.5cm}
+\item A rigor, o kernel precisa ser refletido com relação à origem de
+  ${\cal A}$, mas podemos assumir que o kernel já está refletido sem
+  perda de generalidade.
+  \vspace{0.5cm}
+\item A convolução $\hat{I}*\hat{K}$ entre $\hat{I}$ e $\hat{K}$ resulta, portanto, uma
+  imagem $\hat{J}=(D_J,J)$ onde, para todo $p\in D_J$,
+\begin{eqnarray*}
+J(p) & = & \sum_{\forall (p,q)\in {\cal A}} I(q) K(q-p) = \sum_{i=0}^{|{\cal A}|-1} I(q_i)w_i.
+\end{eqnarray*}
+A rigor, $D_I \subset D_J$, mas constumamos adotar $D_J=D_I$ na filtragem linear.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritmo de filtragem linear}
+Entrada: $\hat{I}=(D_I,I)$ e $\hat{K}=({\cal A},K)$. \\
+Saída: $\hat{J}=(D_I,J)$.
+\begin{enumerate}
+\item[1.] Para todo $p\in D_J$, faça
+\item[2.] \hspace{0.5cm} $J(p) \leftarrow 0$. 
+\item[3.] \hspace{0.5cm} Para todo $(p,q)\in {\cal A}$, tal que $q\in D_I$, faça
+\item[4.] \hspace{1cm}      $J(p)\leftarrow J(p) + I(q)K(q-p)$.
+\end{enumerate}
+\pause
+\vspace{0.5cm}
+
+Isto é, basta varrer os vetores de deslocamento $dx[i]$, $dy[i]$,
+calcular $q_i$, verificar se $q_i\in D_I$, e então acumular no vetor
+$J[p]$ o valor $I[q_i]w[i]$.
+\end{frame}
+
+\begin{frame}{Exercício}
+  Um exercício interessante é resolver a convolução por multiplicação
+  matricial. Basta criar uma matriz onde as colunas armazenam os
+  valores $I(p)$ dos pixels de $\hat{I}$ e as linhas armazenam os
+  valores $I(q_i)$ de seus adjacentes. O kernel neste caso é uma
+  matriz com uma única linha, onde os elementos das colunas são os
+  pesos $w_i$. Multiplica-se a matriz do kernel pela matriz da imagem
+  estendida pela adjacência. 
+\end{frame}
+
+\begin{frame}{Exemplo de filtragem linear}
+O realce de bordas usando os kernels de Sobel é um exemplo típico.
+\begin{eqnarray*}
+K_y = \left [
+\begin{array}{ccc} 
+-1 & -2 & -1 \\
+ 0 &  0 &  0 \\
+ 1 &  2 &  1 
+\end{array} \right ] &
+K_x = \left [
+\begin{array}{ccc} 
+-1 &  0 &  1 \\
+-2 &  0 &  2 \\
+-1 &  0 &  1 
+\end{array} \right ] 
+\end{eqnarray*}
+\vspace{0.5cm}
+
+Sendo $\hat{G_x}=\hat{I}*\hat{K_x}$ e $\hat{G_y}=\hat{I}*\hat{K_y}$,
+$\vec{G}(p)=G_x(p) \vec{i} + G_y(p) \vec{j}$ é dito \alert{vetor
+  gradiente} em $p$, o qual ponta para a direção de maior variação de
+brilho.
+\begin{center}
+\includegraphics<1>[width=0.32\hsize]{./figs/cat.png}   
+\includegraphics<2>[width=0.32\hsize]{./figs/cat-sobel-x.png} 
+\includegraphics<3>[width=0.32\hsize]{./figs/cat-sobel-y.png} 
+\includegraphics<4>[width=0.32\hsize]{./figs/cat-sobel.png} 
+\end{center}
+\end{frame}
+
+\end{document}
+
