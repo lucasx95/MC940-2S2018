@@ -102,7 +102,7 @@ iftMImage  *DivisiveNormalization(iftMImage *mult_img, iftAdjRel *A)
   for (int p=0; p < mult_img->n; p++){
     float sum  = 0.0;
     iftVoxel u = iftMGetVoxelCoord(mult_img,p);
-    for (int i=0; i < A->n; i++) { 
+    for (int i=1; i < A->n; i++) { 
       iftVoxel v = iftGetAdjacentVoxel(A,u,i);
       if (iftMValidVoxel(mult_img,v)){ 
 	int q = iftMGetVoxelIndex(mult_img,v);
@@ -114,7 +114,7 @@ iftMImage  *DivisiveNormalization(iftMImage *mult_img, iftAdjRel *A)
     sum = sqrtf(sum);
     if (sum > IFT_EPSILON){
       for (int b=0; b < mult_img->m; b++) {
-	norm_img->band[b].val[p] = mult_img->band[b].val[p]/sum;
+	norm_img->band[b].val[p] = (mult_img->band[b].val[p]/sum);
       }
     }
   }
@@ -141,6 +141,29 @@ iftMImage  *MaxPooling(iftMImage *mult_img, iftAdjRel *A)
 	}
       }
       pool_img->band[b].val[p] = max;
+    }
+  }
+  
+  return(pool_img);
+}
+
+iftMImage  *MinPooling(iftMImage *mult_img, iftAdjRel *A)
+{
+  iftMImage *pool_img = iftCreateMImage(mult_img->xsize,mult_img->ysize,mult_img->zsize,mult_img->m);
+
+  for (int p=0; p < mult_img->n; p++){
+    iftVoxel u = iftMGetVoxelCoord(mult_img,p);
+    for (int b=0; b < mult_img->m; b++) { 
+      float min  = IFT_INFINITY_FLT;
+      for (int i=0; i < A->n; i++) { 
+	iftVoxel v = iftGetAdjacentVoxel(A,u,i);
+	if (iftMValidVoxel(mult_img,v)){ 
+	  int q = iftMGetVoxelIndex(mult_img,v);
+	  if (mult_img->band[b].val[q] < min)
+	    min = mult_img->band[b].val[q];
+	}
+      }
+      pool_img->band[b].val[p] = min;
     }
   }
   
@@ -230,17 +253,27 @@ int main(int argc, char *argv[])
 
   tstart = iftTic();
 
+  iftAdjRel *A;
+  iftMImage *aux_mult_img;
   K                         = ReadMKernel(argv[2]);
-  iftMImage *aux_mult_img   = Convolution(mult_img,K); /* it includes bias */
-  iftDestroyMImage(&mult_img);
-  mult_img                  = ReLu(aux_mult_img); /* activation */
-  iftDestroyMImage(&aux_mult_img);
-  iftAdjRel *A = iftRectangular(10,5);
-  aux_mult_img = MaxPooling(mult_img, A);
+
+  A         = iftCircular(15.0);
+  aux_mult_img  = DivisiveNormalization(mult_img, A);
   iftDestroyAdjRel(&A);
+
   iftDestroyMImage(&mult_img);
-  A         = iftCircular(5.0);
-  mult_img  = DivisiveNormalization(aux_mult_img, A);
+  mult_img   = Convolution(aux_mult_img,K); /* it includes bias */
+  iftDestroyMImage(&aux_mult_img);
+  
+  aux_mult_img                  = ReLu(mult_img); /* activation */
+  iftDestroyMImage(&mult_img);
+
+  A = iftRectangular(10,5);
+  mult_img = MaxPooling(aux_mult_img, A);
+  iftDestroyAdjRel(&A);
+  iftDestroyMImage(&aux_mult_img);
+  A            = iftRectangular(20,1);
+  aux_mult_img     = MinPooling(mult_img, A);
   iftDestroyAdjRel(&A);
   filt_img  = iftMImageToImage(aux_mult_img,255,0); /* Extract band 0
 						       normalized in
