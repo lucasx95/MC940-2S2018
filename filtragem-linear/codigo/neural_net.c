@@ -367,10 +367,16 @@ void FindBestKernelWeights(iftMImage **mimg, iftImage **mask, int nimages, NetPa
     }
 
     printf("ERROS\n");
+    float total_weight = 0.0;
     for (int i = 0; i < mimg[0]->m; i++) {
         printf("%d ", kernel_errors[i]);
+        w[i] = 1.0/ (float) kernel_errors[i];
+        total_weight += w[i];
     }
     printf("\n");
+    for (int i = 0; i < mimg[0]->m; i++) {
+        w[i] = w[i]/total_weight;
+    }
 }
 
 void RegionOfPlates(iftImage **mask, int nimages, NetParameters *nparam) {
@@ -441,6 +447,25 @@ iftMImage **CombineBands(iftMImage **mimg, int nimages, float *weight) {
 
 void FindBestThreshold(iftMImage **cbands, iftImage **mask, int nimages, NetParameters *nparam) {
     nparam->threshold = 0.0;
+    // Look for the smallest error for each kernel
+    printf("NUMBER OF BANDS: %d\n",cbands[0]->m);
+    for (int kernel = 0; kernel < cbands[0]->m; kernel++) {
+        int min_error = INT_MAX;
+        for (int threshold = 0; threshold <= 255; threshold++) {
+            int error = 0;
+            for (int i = 0; i < nimages; i++) {
+                for (int j = 0; j < cbands[i]->n; j++) {
+                    int val = cbands[i]->band[kernel].val[j] > threshold ? 1 : 0;
+                    error += abs(val - mask[i]->val[j]);
+                }
+            }
+            if(error < min_error) {
+                printf("NOVO MIN_ERRO PARA KERNEL %d: %d %d\n",kernel, threshold, error);
+                min_error = error;
+                nparam->threshold = (float) threshold;
+            }
+        }
+    }
 }
 
 iftImage **ApplyThreshold(iftMImage **cbands, int nimages, NetParameters *nparam) {
