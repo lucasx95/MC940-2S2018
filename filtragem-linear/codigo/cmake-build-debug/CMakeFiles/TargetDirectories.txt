@@ -1,0 +1,3 @@
+/home/lucasalves/Documents/Estudos/MC940-2S2018/filtragem-linear/codigo/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/lucasalves/Documents/Estudos/MC940-2S2018/filtragem-linear/codigo/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/lucasalves/Documents/Estudos/MC940-2S2018/filtragem-linear/codigo/cmake-build-debug/CMakeFiles/codigo.dir
