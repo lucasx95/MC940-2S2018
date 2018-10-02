@@ -89,6 +89,19 @@ MKernel *CreateMKernel(iftAdjRel *A, int nbands) {
     return kernel;
 }
 
+iftMatrix *CreateMMatrix(int n_columns, int n_rows) {
+    iftMatrix *kernel_matrix = (iftMatrix *) iftAlloc(1, sizeof(iftMatrix));
+
+    kernel_matrix->ncols = n_columns;
+    kernel_matrix->nrows = n_rows;
+    kernel_matrix->n = n_columns * n_rows;
+    kernel_matrix->allocated = true;
+
+    kernel_matrix->val = iftAllocFloatArray(kernel_matrix->n);
+
+    return kernel_matrix;
+}
+
 void DestroyMKernel(MKernel **K) {
     MKernel *kernel = *K;
 
@@ -134,6 +147,77 @@ MKernelBank *ReadMKernelBank(char *filename) {
 
     return (Kbank);
 }
+
+iftMatrix *ReadMKernelBankAsMatrix(char *filename, int *xsizeref, int *ysizeref) {
+
+    FILE *fp = fopen(filename, "r");
+    int nbands, xsize, ysize, nkernels;
+    iftMatrix *kernel_matrix;
+
+    fscanf(fp, "%d %d %d %d", &nbands, &xsize, &ysize, &nkernels);
+
+    *xsizeref = xsize;
+    *ysizeref = ysize;
+
+    int n_columns = nbands * ysize * xsize + 1; // Number of weights per kernel with the bias.
+
+    kernel_matrix = CreateMMatrix(n_columns, nkernels);
+
+    kernel_matrix->ncols = n_columns;
+    kernel_matrix->nrows = nkernels;
+    kernel_matrix->n = kernel_matrix->ncols * kernel_matrix->nrows;
+    for (int i = 0; i < kernel_matrix->n; ++i) { // For each kernel/ Matrix line
+        fscanf(fp, "%f", &kernel_matrix->val[i]);
+    }
+
+    fclose(fp);
+    return kernel_matrix;
+}
+
+/* Extend a multi-band image to include the adjacent values in a same
+   matrix */
+iftMatrix *MImageToMatrix(iftMImage *mult_img, iftAdjRel *A) {
+    int n_columns = mult_img->n;
+    int n_rows = (A->n * mult_img->m) + 1;
+    iftMatrix *image_matrix = CreateMMatrix(n_columns, n_rows);
+
+    for (int p = 0; p < mult_img->n; p++) {
+        iftVoxel u = iftMGetVoxelCoord(mult_img, p);
+        for (int i = 0; i < A->n; i++) {
+            iftVoxel v = iftGetAdjacentVoxel(A, u, i);
+            int matrix_position = i * mult_img->m * mult_img->n + p;
+            // If it's not a valid position put 0.
+            if (!iftMValidVoxel(mult_img, v)) {
+                for (int j = 0; j < mult_img->m; ++j) {
+                    image_matrix->val[matrix_position] = 0.0;
+                    matrix_position += mult_img->n;
+                }
+                image_matrix->val[matrix_position] = 1.0; // Include columns to be multiplied by the bias.
+                continue;
+            }
+            int q = iftMGetVoxelIndex(mult_img, v);
+            for (int j = 0; j < mult_img->m; ++j) {
+                image_matrix->val[matrix_position] = mult_img->band[j].val[q];
+                matrix_position += mult_img->n;
+            }
+            image_matrix->val[matrix_position] = 1.0; // Include columns to be multiplied by the bias.
+        }
+    }
+    return image_matrix;
+}
+
+/* Extend a multi-band image to include the adjacent values in a same
+   image matrix */
+
+iftMatrix *ConvolutionByMatrixMult(iftMatrix *Ximg, iftMatrix *W) {
+    return iftMultMatrices(W, Ximg);
+}
+
+
+iftMImage *MatrixToMImage(iftMatrix *Ximg, int xsize, int ysize) {
+    return iftMatrixToMImage(Ximg, xsize, ysize, 1, Ximg->nrows);
+}
+
 
 void DestroyMKernelBank(MKernelBank **Kbank) {
     MKernelBank *aux = *Kbank;
@@ -255,10 +339,10 @@ iftMImage *Convolution(iftMImage *mult_img, MKernel *K) {
     return (filt_img);
 }
 
-iftMImage *SingleLayer(iftImage *img, MKernelBank *Kbank) {
-    iftMImage *out = iftCreateMImage(img->xsize, img->ysize, img->zsize, Kbank->nkernels);
+iftMImage *SingleLayer(iftImage *img, iftMatrix *Kbank, int xsize, int ysize) {
+    int imagex = img->xsize, imagey = img->ysize;
 
-    iftAdjRel *A[2];
+    iftAdjRel *A[2], *kernel_adj;
     iftMImage *aux[2], *mimg;
 
     if (iftIsColorImage(img)) {
@@ -267,34 +351,30 @@ iftMImage *SingleLayer(iftImage *img, MKernelBank *Kbank) {
         mimg = iftImageToMImage(img, GRAY_CSPACE);
     }
 
+    kernel_adj = iftRectangular(xsize,ysize);
+    iftMatrix *imageMatrix = MImageToMatrix(mimg, kernel_adj);
+    iftDestroyMImage(&mimg);
+    iftDestroyAdjRel(&kernel_adj);
+    iftMatrix *convMatrix = ConvolutionByMatrixMult(imageMatrix,Kbank);
+    aux[0] = MatrixToMImage(convMatrix,imagex,imagey);
+    iftDestroyMatrix(&imageMatrix);
+
     A[0] = iftRectangular(7, 3);
     A[1] = iftRectangular(9, 9);
 
-    for (int k = 0; k < Kbank->nkernels; k++) {
+    aux[1] = ReLu(aux[0]); /* activation */
+    iftDestroyMImage(&aux[0]);
 
-        aux[0] = Convolution(mimg, Kbank->K[k]);
+    aux[0] = MaxPooling(aux[1], A[0]);
+    iftDestroyMImage(&aux[1]);
 
-        aux[1] = ReLu(aux[0]); /* activation */
-        iftDestroyMImage(&aux[0]);
-
-        aux[0] = MaxPooling(aux[1], A[0]);
-        iftDestroyMImage(&aux[1]);
-
-        aux[1] = MinPooling(aux[0], A[1]);
-        iftDestroyMImage(&aux[0]);
-
-
-        for (int p = 0; p < out->n; p++) {
-            out->band[k].val[p] = aux[1]->band[0].val[p];
-        }
-
-        iftDestroyMImage(&aux[1]);
-    }
+    aux[1] = MinPooling(aux[0], A[1]);
+    iftDestroyMImage(&aux[0]);
 
     for (int i = 0; i < 2; i++)
         iftDestroyAdjRel(&A[i]);
 
-    return (out);
+    return aux[1];
 }
 
 void ComputeAspectRatioParameters(iftImage **mask, int nimages, NetParameters *nparam) {
@@ -358,8 +438,8 @@ void FindBestKernelWeights(iftMImage **mimg, iftImage **mask, int nimages, NetPa
                     error += abs(val - mask[i]->val[j]);
                 }
             }
-            if(error < min_error) {
-                printf("NOVO MIN_ERRO PARA KERNEL %d: %d %d\n",kernel, threshold, error);
+            if (error < min_error) {
+                printf("NOVO MIN_ERRO PARA KERNEL %d: %d %d\n", kernel, threshold, error);
                 min_error = error;
             }
         }
@@ -370,12 +450,12 @@ void FindBestKernelWeights(iftMImage **mimg, iftImage **mask, int nimages, NetPa
     float total_weight = 0.0;
     for (int i = 0; i < mimg[0]->m; i++) {
         printf("%d ", kernel_errors[i]);
-        w[i] = 1.0/ (float) kernel_errors[i];
+        w[i] = 1.0 / (float) kernel_errors[i];
         total_weight += w[i];
     }
     printf("\n");
     for (int i = 0; i < mimg[0]->m; i++) {
-        w[i] = w[i]/total_weight;
+        w[i] = w[i] / total_weight;
     }
 }
 
@@ -448,7 +528,7 @@ iftMImage **CombineBands(iftMImage **mimg, int nimages, float *weight) {
 void FindBestThreshold(iftMImage **cbands, iftImage **mask, int nimages, NetParameters *nparam) {
     nparam->threshold = 0.0;
     // Look for the smallest error for each kernel
-    printf("NUMBER OF BANDS: %d\n",cbands[0]->m);
+    printf("NUMBER OF BANDS: %d\n", cbands[0]->m);
     for (int kernel = 0; kernel < cbands[0]->m; kernel++) {
         int min_error = INT_MAX;
         for (int threshold = 0; threshold <= 255; threshold++) {
@@ -459,8 +539,8 @@ void FindBestThreshold(iftMImage **cbands, iftImage **mask, int nimages, NetPara
                     error += abs(val - mask[i]->val[j]);
                 }
             }
-            if(error < min_error) {
-                printf("NOVO MIN_ERRO PARA KERNEL %d: %d %d\n",kernel, threshold, error);
+            if (error < min_error) {
+                printf("NOVO MIN_ERRO PARA KERNEL %d: %d %d\n", kernel, threshold, error);
                 min_error = error;
                 nparam->threshold = (float) threshold;
             }
@@ -553,7 +633,7 @@ void PostProcess(iftImage **bin, int nimages, NetParameters *nparam) {
     iftDestroyAdjRel(&A);
 }
 
-void WriteResults(iftFileSet *fileSet, iftImage **bin) {
+void WriteResults(iftFileSet *fileSet, iftImage **bin, bool training) {
     iftColor RGB, YCbCr;
     iftAdjRel *A = iftCircular(1.0), *B = iftCircular(sqrtf(2.0));
 
@@ -568,7 +648,11 @@ void WriteResults(iftFileSet *fileSet, iftImage **bin) {
         char filename[200];
         iftSList *list = iftSplitString(fileSet->files[i]->path, "_");
         iftSNode *L = list->tail;
-        sprintf(filename, "result_%s", L->elem);
+        if (training) {
+            sprintf(filename, "./training_images/result_%s", L->elem);
+        } else {
+            sprintf(filename, "./result_images/result_%s", L->elem);
+        }
         iftDrawBorders(img, bin[i], A, YCbCr, B);
         iftWriteImageByExt(img, filename);
         iftDestroyImage(&img);

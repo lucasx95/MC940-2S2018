@@ -13,7 +13,115 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2366138-4032-401d-af0a-7b988610f00f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/kernel_generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codigo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codigo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/testing" beforeDir="false" afterPath="$PROJECT_DIR$/bin/testing" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/training" beforeDir="false" afterPath="$PROJECT_DIR$/bin/training" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/neural_net.c" beforeDir="false" afterPath="$PROJECT_DIR$/neural_net.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.txt" beforeDir="false" afterPath="$PROJECT_DIR$/output.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0003.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0007.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0010.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0013.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0017.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0018.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0022.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0023.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0025.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0026.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0028.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0029.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0031.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0035.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0038.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0040.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0043.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0048.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0051.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0052.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0056.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0057.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0058.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0059.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0060.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0061.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0062.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0064.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0067.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0068.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0069.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0070.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0072.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0076.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0077.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0078.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0079.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0082.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0083.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0085.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0086.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0088.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0093.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0095.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0097.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0099.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0101.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0102.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0103.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0105.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0107.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0108.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0109.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0111.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0113.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0115.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0117.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0120.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0121.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0122.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0123.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0124.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0126.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0127.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0134.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0135.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0137.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0138.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0139.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0142.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0145.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0148.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0151.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0152.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0153.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0156.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0159.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0161.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0162.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0163.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0164.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0166.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0167.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0168.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0170.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0173.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0175.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0176.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0177.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0179.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0180.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0181.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0182.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0184.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0188.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0194.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0196.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0198.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/result_0199.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing.c" beforeDir="false" afterPath="$PROJECT_DIR$/testing.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/training.c" beforeDir="false" afterPath="$PROJECT_DIR$/training.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,38 +138,42 @@
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.3" value="2" />
-          <entry key="project.open.time.5" value="2" />
+          <entry key="project.open.time.5" value="3" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="Makefile" value="1" />
-          <entry key="c" value="5" />
-          <entry key="h" value="8" />
+          <entry key="c" value="6" />
+          <entry key="h" value="9" />
+          <entry key="py" value="1" />
           <entry key="saida" value="2" />
-          <entry key="txt" value="1" />
+          <entry key="txt" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Makefile" value="1" />
-          <entry key="ObjectiveC" value="13" />
-          <entry key="PLAIN_TEXT" value="3" />
+          <entry key="ObjectiveC" value="15" />
+          <entry key="PLAIN_TEXT" value="4" />
+          <entry key="Python" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="c" value="5420" />
+          <entry key="c" value="6256" />
+          <entry key="py" value="181" />
           <entry key="txt" value="65" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="61" />
-          <entry key="ObjectiveC" value="5420" />
+          <entry key="ObjectiveC" value="6256" />
           <entry key="PLAIN_TEXT" value="4" />
+          <entry key="Python" value="181" />
         </counts>
       </usages-collector>
     </session>
@@ -69,37 +181,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Makefile">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="47" column="8" selection-start-line="47" selection-start-column="6" selection-end-line="47" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/neural_net-tarefa.c">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="49" selection-start-line="12" selection-start-column="49" selection-end-line="12" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/neural_net.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="467" column="5" lean-forward="true" selection-start-line="467" selection-start-column="5" selection-end-line="467" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/saida">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2655">
-              <caret line="177" selection-start-line="177" selection-end-line="177" />
+            <state relative-caret-position="393">
+              <caret line="357" column="15" selection-start-line="357" selection-start-column="15" selection-end-line="357" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -107,8 +192,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/testing.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="780">
-              <caret line="52" column="33" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="33" />
+            <state relative-caret-position="981">
+              <caret line="77" column="20" selection-start-line="77" selection-start-column="4" selection-end-line="77" selection-end-column="20" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -117,10 +202,36 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kernel_generator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="33" column="53" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/random-kernal-output.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train1.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="22" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="22" />
+            <state relative-caret-position="88">
+              <caret line="71" column="30" selection-start-line="71" selection-start-column="30" selection-end-line="71" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CNNlayer.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="177">
+              <caret line="267" column="29" selection-start-line="267" selection-start-column="29" selection-end-line="267" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -128,8 +239,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/training.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="50" column="25" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
+            <state relative-caret-position="-324">
+              <caret line="44" column="26" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -138,10 +249,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/iftImage.h">
+        <entry file="file://$PROJECT_DIR$/include/iftCommon.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2100">
-              <caret line="140" column="2" selection-start-line="140" selection-start-column="2" selection-end-line="140" selection-end-column="2" />
+            <state relative-caret-position="308">
+              <caret line="88" column="8" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -166,19 +277,15 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>adj</find>
-      <find>getAdj</find>
-      <find>Image matrix:</find>
-      <find>write</find>
-      <find>tb</find>
-      <find>lut</find>
-      <find>matrix</find>
-      <find>mult_img</find>
-      <find>print</find>
-      <find>min</find>
-      <find>MinPoo</find>
       <find>&quot;min</find>
       <find>ift</find>
       <find>findB</find>
@@ -198,6 +305,17 @@
       <find>FindBestThreshold</find>
       <find>placa0</find>
       <find>mimg</find>
+      <find>proce</find>
+      <find>boolean</find>
+      <find>Kbank</find>
+      <find>ReadM</find>
+      <find>kbank</find>
+      <find>Destro</find>
+      <find>CreateMMatrix\(</find>
+      <find>image_matrixCre</find>
+      <find>CreateMKernel</find>
+      <find>kernel_adjl</find>
+      <find>ConvolutionBy</find>
     </findStrings>
     <replaceStrings>
       <replace>placa</replace>
@@ -210,10 +328,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/CNNlayer.c" />
-        <option value="$PROJECT_DIR$/testing.c" />
         <option value="$PROJECT_DIR$/train1.txt" />
+        <option value="$PROJECT_DIR$/kernel_generator.py" />
+        <option value="$PROJECT_DIR$/CNNlayer.c" />
         <option value="$PROJECT_DIR$/training.c" />
+        <option value="$PROJECT_DIR$/testing.c" />
         <option value="$PROJECT_DIR$/neural_net.c" />
       </list>
     </option>
@@ -226,9 +345,27 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="65" />
-    <option name="width" value="1920" />
+    <option name="x" value="1920" />
+    <option name="y" value="17" />
+    <option name="width" value="960" />
     <option name="height" value="1063" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Python</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>PyInterpreterInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -236,7 +373,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -258,12 +394,13 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/bin/CNNlayer" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -312,11 +449,12 @@
       <workItem from="1537837279999" duration="770000" />
       <workItem from="1538345032703" duration="9916000" />
       <workItem from="1538402044863" duration="1142000" />
+      <workItem from="1538441718427" duration="6509000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42505000" />
+    <option name="totallyTimeSpent" value="49014000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -328,10 +466,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="65" width="1920" height="1063" extended-state="0" />
-    <editor active="true" />
+    <frame x="1920" y="17" width="960" height="1063" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24439701" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16411379" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -353,22 +490,22 @@
       <window_info anchor="right" id="Database" order="3" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25382933" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1155624" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32947367" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4994664" weight="0.3278867" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32947367" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Messages" order="8" weight="0.32947367" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="CMake" order="12" weight="0.33473685" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053364" side_tool="true" weight="0.32947367" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.4994664" visible="true" weight="0.3273684" />
+      <window_info anchor="bottom" id="CMake" order="12" weight="0.33442265" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -458,13 +595,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CNNlayer.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="235" column="20" selection-start-line="235" selection-start-column="20" selection-end-line="235" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="705">
@@ -481,25 +611,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/saida">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2655">
-          <caret line="177" selection-start-line="177" selection-end-line="177" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/testing.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="52" column="33" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train1.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="22" />
+        <state relative-caret-position="8655">
+          <caret line="577" selection-start-line="577" selection-end-line="577" />
         </state>
       </provider>
     </entry>
@@ -524,10 +637,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/training.c">
+    <entry file="file://$PROJECT_DIR$/include/iftCommon.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="50" column="25" selection-start-line="50" selection-start-column="25" selection-end-line="50" selection-end-column="25" />
+        <state relative-caret-position="308">
+          <caret line="88" column="8" selection-start-line="88" selection-start-column="8" selection-end-line="88" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kernel_generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="53" selection-start-line="33" selection-start-column="53" selection-end-line="33" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testing.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="981">
+          <caret line="77" column="20" selection-start-line="77" selection-start-column="4" selection-end-line="77" selection-end-column="20" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
@@ -536,8 +666,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/neural_net.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="467" column="5" lean-forward="true" selection-start-line="467" selection-start-column="5" selection-end-line="467" selection-end-column="5" />
+        <state relative-caret-position="393">
+          <caret line="357" column="15" selection-start-line="357" selection-start-column="15" selection-end-line="357" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/random-kernal-output.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/training.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-324">
+          <caret line="44" column="26" selection-start-line="44" selection-start-column="26" selection-end-line="44" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CNNlayer.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="267" column="29" selection-start-line="267" selection-start-column="29" selection-end-line="267" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="71" column="30" selection-start-line="71" selection-start-column="30" selection-end-line="71" selection-end-column="30" />
         </state>
       </provider>
     </entry>

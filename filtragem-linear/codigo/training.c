@@ -1,11 +1,13 @@
 #include "ift.h"
 #include "neural_net.c"
 #include "limits.h"
+#include <stdbool.h>
+
 iftImage *ReadMaskImage(char *pathname) {
     iftImage *mask = NULL;
     iftSList *list = iftSplitString(pathname, "_");
     iftSNode *L = list->tail;
-    iftSList *other_list = iftSplitString(L->elem,".");
+    iftSList *other_list = iftSplitString(L->elem, ".");
     L = other_list->head;
     char filename[200];
     sprintf(filename, "./imagens/placas-mask/%s.pgm", L->elem);
@@ -17,7 +19,7 @@ iftImage *ReadMaskImage(char *pathname) {
 
 int main(int argc, char *argv[]) {
     iftImage **mask;
-    iftMImage **mimg, **cbands;
+    iftMImage **mimg, **regionMimg, **cbands;
 
     if (argc != 4)
         iftError("training <trainX.txt (X=1,2,3,4,5)> <kernel-bank.txt> <output-parameters.txt>", "main");
@@ -27,7 +29,10 @@ int main(int argc, char *argv[]) {
     iftFileSet *trainSet = iftLoadFileSetFromCSV(argv[1], false);
     mask = (iftImage **) calloc(trainSet->n, sizeof(iftImage *));
     mimg = (iftMImage **) calloc(trainSet->n, sizeof(iftMImage *));
-    MKernelBank *Kbank = ReadMKernelBank(argv[2]);
+    regionMimg = (iftMImage **) calloc(trainSet->n, sizeof(iftMImage *));
+    int *kernelx = calloc(1, sizeof(int)), *kernely = calloc(1,
+                                                             sizeof(int));
+    iftMatrix *Kbank = ReadMKernelBankAsMatrix(argv[2], kernelx, kernely);
 
     /* Apply the single-layer NN in all training images */
 
@@ -37,7 +42,7 @@ int main(int argc, char *argv[]) {
         mask[i] = ReadMaskImage(trainSet->files[i]->path);
         if ((img->xsize != 352) || (img->ysize != 240))
             printf("imagem %s ", trainSet->files[i]->path);
-        mimg[i] = SingleLayer(img, Kbank);
+        mimg[i] = SingleLayer(img, Kbank, *kernelx, *kernely);
         iftDestroyImage(&img);
     }
 
@@ -47,15 +52,19 @@ int main(int argc, char *argv[]) {
     NetParameters *nparam = CreateNetParameters(mimg[0]->m);
     ComputeAspectRatioParameters(mask, trainSet->n, nparam);
     RegionOfPlates(mask, trainSet->n, nparam);
-    RemoveActivationsOutOfRegionOfPlates(mimg, trainSet->n, nparam);
-    NormalizeActivationValues(mimg, trainSet->n, 255, nparam);
+    for (int i = 0; i < trainSet->n; i++) {
+        regionMimg[i] = iftCopyMImage(mimg[i]);
+    }
+    RemoveActivationsOutOfRegionOfPlates(regionMimg, trainSet->n, nparam);
+    NormalizeActivationValues(regionMimg, trainSet->n, 255, nparam);
 
-    /* Find the best kernel weights */
+    /* Find the best kernel weights using the region cutted image */
 
-    FindBestKernelWeights(mimg, mask, trainSet->n, nparam);
+    FindBestKernelWeights(regionMimg, mask, trainSet->n, nparam);
 
     /* Combine bands, find optimum threshold, and apply it */
 
+    NormalizeActivationValues(mimg, trainSet->n, 255, nparam);
     cbands = CombineBands(mimg, trainSet->n, nparam->weight);
     RemoveActivationsOutOfRegionOfPlates(cbands, trainSet->n, nparam);
     FindBestThreshold(cbands, mask, trainSet->n, nparam);
@@ -66,7 +75,7 @@ int main(int argc, char *argv[]) {
     /* Post-process binary images and write results on training set */
 
     PostProcess(bin, trainSet->n, nparam);
-    WriteResults(trainSet, bin);
+    WriteResults(trainSet, bin, true);
 
     /* Free memory */
 
@@ -75,13 +84,14 @@ int main(int argc, char *argv[]) {
         iftDestroyImage(&bin[i]);
         iftDestroyMImage(&cbands[i]);
         iftDestroyMImage(&mimg[i]);
+        iftDestroyMImage(&regionMimg[i]);
     }
     iftFree(mask);
     iftFree(mimg);
     iftFree(bin);
     iftFree(cbands);
     iftDestroyFileSet(&trainSet);
-    DestroyMKernelBank(&Kbank);
+    iftDestroyMatrix(&Kbank);
     DestroyNetParameters(&nparam);
 
     return (0);
