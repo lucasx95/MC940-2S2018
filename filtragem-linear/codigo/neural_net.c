@@ -527,7 +527,6 @@ iftMImage **CombineBands(iftMImage **mimg, int nimages, float *weight) {
 
 void FindBestThreshold(iftMImage **cbands, iftImage **mask, int nimages, NetParameters *nparam) {
     nparam->threshold = 0.0;
-    // Look for the smallest error for each kernel
     printf("NUMBER OF BANDS: %d\n", cbands[0]->m);
     for (int kernel = 0; kernel < cbands[0]->m; kernel++) {
         int min_error = INT_MAX;
