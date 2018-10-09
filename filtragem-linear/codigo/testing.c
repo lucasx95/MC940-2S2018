@@ -1,6 +1,7 @@
 #include "ift.h"
 #include "neural_net.c"
 #include <stdbool.h>
+#include <float.h>
 
 iftImage *ReadMaskImage(char *pathname) {
     iftImage *mask = NULL;

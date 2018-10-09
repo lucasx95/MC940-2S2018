@@ -228,7 +228,6 @@ void DestroyMKernelBank(MKernelBank **Kbank) {
 }
 
 /* Activation function known as Rectified Linear Unit (ReLu) */
-
 iftMImage *ReLu(iftMImage *mult_img) {
     iftMImage *activ_img = iftCreateMImage(mult_img->xsize, mult_img->ysize, mult_img->zsize, mult_img->m);
 
@@ -243,7 +242,6 @@ iftMImage *ReLu(iftMImage *mult_img) {
 
 /* This function is used to emphasize isolated (important)
    activations */
-
 iftMImage *DivisiveNormalization(iftMImage *mult_img, iftAdjRel *A) {
     iftMImage *norm_img = iftCreateMImage(mult_img->xsize, mult_img->ysize, mult_img->zsize, mult_img->m);
 
@@ -399,7 +397,6 @@ void NormalizeActivationValues(iftMImage **mimg, int nimages, int maxval, NetPar
 
     for (int i = 0; i < nimages; i++) { /* For each image */
         for (int b = 0; b < mimg[i]->m; b++) { /* For each band */
-            maxactiv[b] = 0.0;
             for (int p = 0; p < mimg[i]->n; p++) { /* Find the maximum
   						activation value */
                 if (mimg[i]->band[b].val[p] > maxactiv[b])
@@ -425,21 +422,25 @@ void FindBestKernelWeights(iftMImage **mimg, iftImage **mask, int nimages, NetPa
         return;
     }
     float *w = nparam->weight;
-    int kernel_errors[mimg[0]->m];
+    float kernel_errors[mimg[0]->m];
 
     // Look for the smallest error for each kernel
     for (int kernel = 0; kernel < mimg[0]->m; kernel++) {
-        int min_error = INT_MAX;
+        float min_error = FLT_MAX;
         for (int threshold = 0; threshold <= 255; threshold++) {
-            int error = 0;
+            float error = 0;
             for (int i = 0; i < nimages; i++) {
                 for (int j = 0; j < mimg[i]->n; j++) {
-                    int val = mimg[i]->band[kernel].val[j] > threshold ? 1 : 0;
-                    error += abs(val - mask[i]->val[j]);
+                    int val = (mimg[i]->band[kernel].val[j] > threshold ? 1 : 0) - mask[i]->val[j] ;
+                    if(val == 1) {
+                      error += 0.25;
+                    } else {
+                        error += (float) abs(val);
+                    }
                 }
             }
             if (error < min_error) {
-                printf("NOVO MIN_ERRO PARA KERNEL %d: %d %d\n", kernel, threshold, error);
+                printf("NOVO MIN_ERRO PARA KERNEL %d: %d %f\n", kernel, threshold, error);
                 min_error = error;
             }
         }
@@ -449,8 +450,8 @@ void FindBestKernelWeights(iftMImage **mimg, iftImage **mask, int nimages, NetPa
     printf("ERROS\n");
     float total_weight = 0.0;
     for (int i = 0; i < mimg[0]->m; i++) {
-        printf("%d ", kernel_errors[i]);
-        w[i] = 1.0 / (float) kernel_errors[i];
+        printf("%f ", kernel_errors[i]);
+        w[i] = 1.0 / kernel_errors[i];
         total_weight += w[i];
     }
     printf("\n");
@@ -529,17 +530,21 @@ void FindBestThreshold(iftMImage **cbands, iftImage **mask, int nimages, NetPara
     nparam->threshold = 0.0;
     printf("NUMBER OF BANDS: %d\n", cbands[0]->m);
     for (int kernel = 0; kernel < cbands[0]->m; kernel++) {
-        int min_error = INT_MAX;
+        float min_error = FLT_MAX;
         for (int threshold = 0; threshold <= 255; threshold++) {
-            int error = 0;
+            float error = 0;
             for (int i = 0; i < nimages; i++) {
                 for (int j = 0; j < cbands[i]->n; j++) {
-                    int val = cbands[i]->band[kernel].val[j] > threshold ? 1 : 0;
-                    error += abs(val - mask[i]->val[j]);
+                    int val = (cbands[i]->band[kernel].val[j] > threshold ? 1 : 0) - mask[i]->val[j] ;
+                    if(val == 1) {
+                        error += 0.25;
+                    } else {
+                        error += (float) abs(val);
+                    }
                 }
             }
             if (error < min_error) {
-                printf("NOVO MIN_ERRO PARA KERNEL %d: %d %d\n", kernel, threshold, error);
+                printf("NOVO MIN_ERRO PARA KERNEL %d: %d %f\n", kernel, threshold, error);
                 min_error = error;
                 nparam->threshold = (float) threshold;
             }

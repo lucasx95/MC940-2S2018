@@ -2,6 +2,7 @@
 #include "neural_net.c"
 #include "limits.h"
 #include <stdbool.h>
+#include <float.h>
 
 iftImage *ReadMaskImage(char *pathname) {
     iftImage *mask = NULL;
